@@ -1,0 +1,87 @@
+<!--index.wxml-->
+
+<import src="/wxSearch/wxSearch.wxml"/>
+
+<view class="wxSearch-section">
+  <view class="wxSearch-pancel">
+    <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="快来pick你想要的表情包吧" />
+    <button class="wxSearch-button" bindtap="wxSearchFn" size="mini" plain="true">搜索</button>
+  </view>
+</view>
+<template is="wxSearch" data="{{wxSearchData}}"/>
+<view class="container">
+
+
+<view class="ondivline">热词搜索</view>
+  <view class="divLine"></view>
+
+ <view class="weui-flex">
+            <view class="weui-flex__item"><view class="placeholder">group1</view></view>
+            <view class="weui-flex__item"><view class="placeholder">group2</view></view>
+            <view class="weui-flex__item"><view class="placeholder">group3</view></view>
+            <view class="weui-flex__item"><view class="placeholder">group4</view></view>
+ </view>
+ <view class="weui-flex">
+            <view class="weui-flex__item"><view class="placeholder">group5</view></view>
+            <view class="weui-flex__item"><view class="placeholder">group6</view></view>
+            <view class="weui-flex__item"><view class="placeholder">group7</view></view>
+            <view class="weui-flex__item"><view class="placeholder">group8</view></view>
+ </view>
+
+  <view class="divLine"></view>
+
+ 
+  <view class="underdivline" bindtap="getRandom">换一批
+    <image style="height:12px ;width:12px" src="/images/refresh.jpg" mode="aspectFit" /></view>
+
+
+ <view class="divLine"></view>
+
+ <view class="weui-flex">
+            <view class="weui-flex__item">
+            <view class="imgcard">
+            <image style="width:150%"  src="/images/pic1.jpg" mode="aspectFit" />
+            pic1</view>
+            </view>
+            <view class="weui-flex__item"><view class="imgcard">pic2</view></view>
+  </view>
+
+ <view class="weui-flex">
+            <view class="weui-flex__item">
+            <view class="imgcard">
+            <image style="width:150%"  src="/images/pic1.jpg" mode="aspectFit" />
+            pic1</view>
+            </view>
+            <view class="weui-flex__item"><view class="imgcard">pic4</view></view>
+  </view>
+
+   <view class="weui-flex">
+            <view class="weui-flex__item">
+            <view class="imgcard">
+            <image style="width:150%"  src="/images/pic1.jpg" mode="aspectFit" />
+            pic1</view>
+            </view>
+            <view class="weui-flex__item"><view class="imgcard">pic6</view></view>
+  </view>
+
+   <view class="weui-flex">
+            <view class="weui-flex__item">
+            <view class="imgcard">
+            <image style="width:150%"  src="/images/pic1.jpg" mode="aspectFit" />
+            pic1</view>
+            </view>
+            <view class="weui-flex__item"><view class="imgcard">pic8</view></view>
+  </view>
+   <view class="weui-flex">
+            <view class="weui-flex__item">
+            <view class="imgcard">
+            <image style="width:150%"  src="/images/pic1.jpg" mode="aspectFit" />
+            pic1</view>
+            </view>
+            <view class="weui-flex__item"><view class="imgcard">pic10</view></view>
+  </view>
+
+ <image src='/images/gotop.jpg' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>
+</view>
+
+

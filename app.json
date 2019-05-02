@@ -1,0 +1,36 @@
+{
+  "pages": [
+      "pages/index/index",
+    "pages/uploadpic/uploadpic",
+    "pages/searchResult/searchResult",
+    "pages/logs/logs",
+    "pages/discovery/discovery",
+    "pages/more/more"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "斗图大师",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#626567",
+    "selectedColor": "#2A8CE5",
+    "backgroundColor": "#FBFBFB",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "",
+        "iconPath": "images/search.png",
+        "selectedIconPath": "images/search2.png"
+      },
+      {
+        "pagePath": "pages/more/more",
+        "text": "",
+        "iconPath": "images/cloud.png",
+        "selectedIconPath": "images/cloud2.png"
+      }
+    ]
+  }
+}
