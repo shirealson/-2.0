@@ -232,3 +232,25 @@ Page {
     line-height: 0.5em;
     color: rgb(245, 100, 3);
 }
+.SearchBox{
+ margin-bottom: 20rpx;
+ padding: 20rpx;
+}
+.mySearchInput{
+  border-radius: 20rpx 0 0 20rpx;
+  background-color: white;
+  border: 1px solid #d8d7d7;
+  border-right: none;
+  box-shadow: 0 5rpx 3px #d8d7d7;
+}
+.mySearchBtn{
+  background-color: orange !important;
+  border-radius: 0 20rpx 20rpx 0;
+  box-shadow: 0 5rpx 3px #d8d7d7;
+  color: white !important;
+}
+.page__bd_spacing{
+  padding-left:15px;
+  padding-right:15px;
+}
+
