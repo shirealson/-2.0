@@ -1,6 +1,6 @@
 {
   "pages": [
-      "pages/index/index",
+    "pages/index/index",
     "pages/uploadpic/uploadpic",
     "pages/searchResult/searchResult",
     "pages/logs/logs",
@@ -32,5 +32,6 @@
         "selectedIconPath": "images/cloud2.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
