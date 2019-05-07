@@ -1,6 +1,8 @@
 @import "/wxSearch/wxSearch.wxss";
 /* pages/others/waterfall/waterfall.wxss */
 
+@import "/WEUI/weui.wxss";
+
 Page {
   background: #fff;
 }
@@ -195,15 +197,19 @@ Page {
  width: 100%;
  height: 5rpx;
 }
-.imgcard{
-    margin: 20px;
-    padding: 0 50px;
-    text-align: left;
-    background-color: black;
-    height: 8em;
-    line-height: 1em;
-    color: #cfcfcf;
+.img_card{
+    width: 40%;
+    margin: 10rpx;
+    padding: 15rpx;
+    border-radius: 20rpx;
+    box-shadow: 0 5rpx 3px #d8d7d7;
+    border:1px solid #d8d7d7;
 }
+.img_card:nth-child(odd){
+  margin-right:31rpx;
+}
+
+
 /* 返回顶部 */
 .goTop{
   height: 80rpx;
@@ -249,8 +255,44 @@ Page {
   box-shadow: 0 5rpx 3px #d8d7d7;
   color: white !important;
 }
+
 .page__bd_spacing{
   padding-left:15px;
   padding-right:15px;
 }
+.mynavBar{
+  border-radius: 20rpx;
+  box-shadow: 0 5rpx 3px #d8d7d7;
+  background-color: orange;
+  color: white;
+  text-align: center;
+  padding: 10rpx 5rpx;
+}
+.mynavBar view{
+  margin:10rpx;
+}
 
+#AI-box{
+  margin-top:30rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 5rpx 3px #d8d7d7;
+  border:1px solid #d8d7d7;
+  padding: 30rpx;
+}
+.my-flex{
+  flex-direction: row;
+  flex-wrap:wrap;
+  
+}
+.meme_pic {
+  width:250rpx;
+  height:200rpx;
+
+}
+.like_btn{
+height:50rpx;
+width:50rpx;
+position: relative;
+float: right;
+top:7rpx;
+}

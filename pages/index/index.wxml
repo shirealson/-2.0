@@ -1,91 +1,88 @@
 <!--index.wxml-->
 
 <import src="/wxSearch/wxSearch.wxml"/>
-<view id="topblock"><!-- 此处是顶端，包括LOGO和搜索框!-->
-<image src="/images/logo.jpg" mode="aspectFit" style='height:350rpx'></image>
+<view id="topblock" style='text-align:center'><!-- 此处是顶端，包括LOGO和搜索框!-->
+<image src="/images/logo.jpg" mode="aspectFit" style='height:300rpx'/>
 <view class="SearchBox">
   <view class="wxSearch-pancel">
     <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input mySearchInput" placeholder="快来pick你想要的表情包吧" />
-    <button class="wxSearch-button mySearchBtn" bindtap="wxSearchFn" size="mini" plain="true">搜索     </button>
+    <button class="wxSearch-button mySearchBtn" bindtap="wxSearchFn" plain="true" style="font-size:30rpx">搜索</button>
   </view>
 </view>
 <template is="wxSearch" data="{{wxSearchData}}"/>
 </view>
-<view class="page__bd page__bd_spacing">
+<view class="page__bd page__bd_spacing" style='font-size:30rpx'>
   <view class="weui-flex">
-            <view class="weui-flex__item"><image style="height:12px ;width:12px" src="/images/refresh.jpg" mode="aspectFit" />热门表情</view>
+            <view class="weui-flex__item" style='color:#898887'><image src="/images/fire.png" style="height:30rpx ;width:30rpx"mode="aspectFit" /> 热门表情</view>
             <view class="weui-flex__item"></view>
-            <view class="weui-flex__item" style="text-align:right"><image style="height:12px ;width:12px" src="/images/refresh.jpg" mode="aspectFit" /> 换一批</view>
+            <view class="weui-flex__item" style="text-align:right;color:#898887"><image style="height:30rpx ;width:30rpx" src="/images/refresh.png" mode="aspectFit" /> 换一批</view>
+  </view>
+  <view class="mynavBar">
+    <view class="weui-flex">
+            <view class="weui-flex__item">group1</view>
+            <view class="weui-flex__item">group2</view>
+            <view class="weui-flex__item">group3</view>
+            <view class="weui-flex__item">group4</view>
+            <view class="weui-flex__item">group5</view>
+    </view>
+    <view class="weui-flex">
+            <view class="weui-flex__item">group5</view>
+            <view class="weui-flex__item">group6</view>
+            <view class="weui-flex__item">group7</view>
+            <view class="weui-flex__item">group8</view>
+            <view class="weui-flex__item">group5</view>
+    </view>
   </view>
 </view>
-<view class="container">
- <view class="weui-flex">
-            <view class="weui-flex__item"><view class="placeholder">group1</view></view>
-            <view class="weui-flex__item"><view class="placeholder">group2</view></view>
-            <view class="weui-flex__item"><view class="placeholder">group3</view></view>
-            <view class="weui-flex__item"><view class="placeholder">group4</view></view>
- </view>
- <view class="weui-flex">
-            <view class="weui-flex__item"><view class="placeholder">group5</view></view>
-            <view class="weui-flex__item"><view class="placeholder">group6</view></view>
-            <view class="weui-flex__item"><view class="placeholder">group7</view></view>
-            <view class="weui-flex__item"><view class="placeholder">group8</view></view>
- </view>
 
-  <view class="divLine"></view>
+<view id="pic_area" class='page__bd_spacing'>
+  <view id="AI-box">
+    <view class="weui-article__h1">不满意搜索结果?</view>
+    <view class="weui-article__p" style='font-size:30rpx'>快来尝试我们的AI合成图片功能吧！我们将使用AI生成你想要的表情!</view>
+      <button class='weui-btn' type="primary">开始合成(≖ᴗ≖)✧</button>
+  </view>
+  <view class="weui-flex my-flex" style="margin-top:30rpx" >
+
+    <view class="img_card">
+      <view style='text-align:center'>
+        <image src="/images/pic1.jpg" class="meme_pic"mode="aspectFit"></image>
+      </view>
+      <view style="float:left">脆皮鹦鹉</view>
+      
+      <image src="/images/like1.png" class="like_btn"  wx:if="{{false}}"></image>
+      <image src="/images/like2.png" class="like_btn"></image>  
+    </view>
+
+    <view class="img_card">
+      <view style='text-align:center'>
+        <image src="/images/pic1.jpg" class="meme_pic"mode="aspectFit"></image>
+      </view>
+      <view style="float:left">脆皮鹦鹉</view>
+      
+      <image src="/images/like1.png" class="like_btn"  wx:if="{{false}}"></image>
+      <image src="/images/like2.png" class="like_btn"></image>  
+    </view>
+
+    <view class="img_card">
+      <view style='text-align:center'>
+        <image src="/images/pic1.jpg" class="meme_pic"mode="aspectFit"></image>
+      </view>
+      <view style="float:left">脆皮鹦鹉</view>
+      
+      <image src="/images/like1.png" class="like_btn"  wx:if="{{false}}"></image>
+      <image src="/images/like2.png" class="like_btn"></image>  
+    </view>
+
+  </view>
+
+</view>
 
  
-  <view class="underdivline" bindtap="getRandom">换一批
-    <image style="height:12px ;width:12px" src="/images/refresh.jpg" mode="aspectFit" /></view>
+            
 
 
- <view class="divLine"></view>
-
- <view class="weui-flex">
-            <view class="weui-flex__item">
-            <view class="imgcard">
-            <image style="width:150%"  src="/images/pic1.jpg" mode="aspectFit" />
-            pic1</view>
-            </view>
-            <view class="weui-flex__item"><view class="imgcard">pic2</view></view>
-  </view>
-
- <view class="weui-flex">
-            <view class="weui-flex__item">
-            <view class="imgcard">
-            <image style="width:150%"  src="/images/pic1.jpg" mode="aspectFit" />
-            pic1</view>
-            </view>
-            <view class="weui-flex__item"><view class="imgcard">pic4</view></view>
-  </view>
-
-   <view class="weui-flex">
-            <view class="weui-flex__item">
-            <view class="imgcard">
-            <image style="width:150%"  src="/images/pic1.jpg" mode="aspectFit" />
-            pic1</view>
-            </view>
-            <view class="weui-flex__item"><view class="imgcard">pic6</view></view>
-  </view>
-
-   <view class="weui-flex">
-            <view class="weui-flex__item">
-            <view class="imgcard">
-            <image style="width:150%"  src="/images/pic1.jpg" mode="aspectFit" />
-            pic1</view>
-            </view>
-            <view class="weui-flex__item"><view class="imgcard">pic8</view></view>
-  </view>
-   <view class="weui-flex">
-            <view class="weui-flex__item">
-            <view class="imgcard">
-            <image style="width:150%"  src="/images/pic1.jpg" mode="aspectFit" />
-            pic1</view>
-            </view>
-            <view class="weui-flex__item"><view class="imgcard">pic10</view></view>
-  </view>
+ 
 
  <image src='/images/gotop.jpg' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>
-</view>
 
 
