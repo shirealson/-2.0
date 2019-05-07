@@ -268,6 +268,7 @@ Page {
   color: white;
   text-align: center;
   padding: 10rpx 5rpx;
+  
 }
 .mynavBar view{
   margin:10rpx;

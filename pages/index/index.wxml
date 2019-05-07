@@ -6,7 +6,7 @@
 <image src="/images/logo.png" mode="aspectFit" style='height:300rpx'/>
 <view class="SearchBox">
   <view class="wxSearch-pancel">
-    <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input mySearchInput" placeholder="快来pick你想要的表情包吧" />
+    <input bindinput="wxSearchInput" class="wxSearch-input mySearchInput" placeholder="快来pick你想要的表情包吧" />
     <button class="wxSearch-button mySearchBtn" bindtap="wxSearchFn" plain="true" style="font-size:30rpx">搜索</button>
   </view>
 </view>
@@ -16,27 +16,27 @@
   <view class="weui-flex">
             <view class="weui-flex__item" style='color:#898887;color:black'><image src="/images/fire.png" style="height:30rpx ;width:30rpx"mode="aspectFit" /> 热门表情</view>
             <view class="weui-flex__item"></view>
-            <view class="weui-flex__item" style="text-align:right;color:#898887;color:black"><image style="height:30rpx ;width:30rpx" src="/images/refresh.png" mode="aspectFit" /> 换一批</view>
+            <view bindtap="getRandom" class="weui-flex__item" style="text-align:right;color:#898887;color:black"><image style="height:30rpx ;width:30rpx" src="/images/refresh.png" mode="aspectFit" /> 换一批</view>
   </view>
   <view class="mynavBar">
     <view class="weui-flex">
-            <view class="weui-flex__item">group1</view>
-            <view class="weui-flex__item">group2</view>
-            <view class="weui-flex__item">group3</view>
-            <view class="weui-flex__item">group4</view>
-            <view class="weui-flex__item">group5</view>
+            <view class="weui-flex__item"data-gid='{{group[0].id}}' data-name='{{group[0].name}}'bindtap="change_group">{{group[0].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[1].id}}' data-name='{{group[1].name}}'bindtap="change_group">{{group[1].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[2].id}}' data-name='{{group[2].name}}'bindtap="change_group">{{group[2].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[3].id}}' data-name='{{group[3].name}}'bindtap="change_group">{{group[3].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[4].id}}' data-name='{{group[4].name}}'bindtap="change_group">{{group[4].name}}</view>
     </view>
     <view class="weui-flex">
-            <view class="weui-flex__item">group5</view>
-            <view class="weui-flex__item">group6</view>
-            <view class="weui-flex__item">group7</view>
-            <view class="weui-flex__item">group8</view>
-            <view class="weui-flex__item">group5</view>
+            <view class="weui-flex__item"data-gid='{{group[5].id}}' data-name='{{group[5].name}}'bindtap="change_group">{{group[5].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[6].id}}' data-name='{{group[6].name}}'bindtap="change_group">{{group[6].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[7].id}}' data-name='{{group[7].name}}'bindtap="change_group">{{group[7].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[8].id}}' data-name='{{group[8].name}}'bindtap="change_group">{{group[8].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[9].id}}' data-name='{{group[9].name}}'bindtap="change_group">{{group[9].name}}</view>
     </view>
   </view>
 </view>
 
-<view id="pic_area" class='page__bd_spacing'>
+<view id="pic_area" class='page__bd_spacing' >
   <view id="AI-box" wx:if="{{false}}">
     <view class="weui-article__h1">不满意搜索结果?</view>
     <view class="weui-article__p" style='font-size:30rpx'>快来尝试我们的AI合成图片功能吧！我们将使用AI生成你想要的表情!</view>
@@ -44,35 +44,16 @@
   </view>
   <view class="weui-flex my-flex" style="margin-top:30rpx" >
 
-    <view class="img_card">
+    <view class="img_card" wx:for="{{imgarray}}">
       <view style='text-align:center'>
-        <image src="/images/pic1.jpg" class="meme_pic"mode="aspectFit"></image>
+        <image src="{{'https://www.myworkroom.cn:5000/static/img/' + item.path}}" class="meme_pic"mode="aspectFit"></image>
       </view>
-      <view style="float:left">脆皮鹦鹉</view>
+      <view style="float:left">{{current_group.name}}</view>
       
-      <image src="/images/like2.png" class="like_btn"  wx:if="{{true}}"></image>
+      <image src="/images/like2.png" class="like_btn"  wx:if="{{item.like}}"></image>
       <image src="/images/like1.png" class="like_btn" wx:else></image>  
     </view>
 
-    <view class="img_card">
-      <view style='text-align:center'>
-        <image src="/images/pic1.jpg" class="meme_pic"mode="aspectFit"></image>
-      </view>
-      <view style="float:left">脆皮鹦鹉</view>
-      
-      <image src="/images/like2.png" class="like_btn"  wx:if="{{false}}"></image>
-      <image src="/images/like1.png" class="like_btn"  wx:else></image>  
-    </view>
-
-    <view class="img_card">
-      <view style='text-align:center'>
-        <image src="/images/pic2.gif" class="meme_pic"mode="aspectFit"></image>
-      </view>
-      <view style="float:left">脆皮鹦鹉</view>
-      
-      <image src="/images/like2.png" class="like_btn"  wx:if="{{false}}"></image>
-      <image src="/images/like1.png" class="like_btn"  wx:else></image>  
-    </view>
 
   </view>
 

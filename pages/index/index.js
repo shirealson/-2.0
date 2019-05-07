@@ -4,14 +4,21 @@ var WxSearch = require('../../wxSearch/wxSearch.js')
 var app = getApp()
 Page({
   data: {
-    group1: { id: 0, name: "一" },
-    group2: { id: 0, name: "一" },
-    group3: { id: 0, name: "一" },
-    group4: { id: 0, name: "一" },
-    group5: { id: 0, name: "一" },
-    group6: { id: 0, name: "一" },
-    group7: { id: 0, name: "一" },
-    group8: { id: 0, name: "一" },
+    group: [
+      {id : 0, name : "xxx"},
+      { id: 1, name: "xxx" },
+      { id: 2, name: "xxx" },
+      { id: 3, name: "xxx" },
+      { id: 4, name: "xxx" },
+      { id: 5, name: "xxx" },
+      { id: 6, name: "xxx" },
+      { id: 7, name: "xxx" },
+      { id: 8, name: "xxx" },
+      { id: 9, name: "xxx" }
+    ],
+    imgarray: [
+    ],
+    current_group:{id:0,name: "xxx"},
     leftHeight: 0,
     rightHeight: 0,
     length: 10,
@@ -28,70 +35,58 @@ Page({
   onLoad: function () {
     console.log('onLoad')
     var that = this
-    //初始化的时候渲染wxSearchdata
-    WxSearch.init(that,43,['tatan','金馆长','脆皮鹦鹉','可达鸭','汪蛋']);
-    WxSearch.initMindKeys(['666','微信小程序开发','微信开发','微信小程序']);
-//获取groupid
-    wx.request({
-      url: "https://",
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' //默认值
-      },
+    wx.login({
       success: function (res) {
+        console.log(res.code)
 
-        group1.id=res.data.group1.id;
-        group1.name=res.data.group1.name;
-        group2.id = res.data.group2.id;
-        group2.name = res.data.group2.name;
-        group3.id = res.data.group3.id;
-        group3.name = res.data.group3.name;
-        group4.id = res.data.group4.id;
-        group4.name = res.data.group4.name;
-        group5.id = res.data.group5.id;
-        group5.name = res.data.group5.name;
-        group6.id = res.data.group6.id;
-        group6.name = res.data.group6.name;
-        group7.id = res.data.group7.id;
-        group7.name = res.data.group7.name;
-        group8.id = res.data.group8.id;
-        group8.name = res.data.group8.name;
-      } 
-    })
-  },
-  getRandom:function(){
-    wx.request({
-      url: "https://",
-      method: 'GET',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' //默认值
-      },
-      success: function (res) {
-
-        group1.id = res.data.group1.id;
-        group1.name = res.data.group1.name;
-        group2.id = res.data.group2.id;
-        group2.name = res.data.group2.name;
-        group3.id = res.data.group3.id;
-        group3.name = res.data.group3.name;
-        group4.id = res.data.group4.id;
-        group4.name = res.data.group4.name;
-        group5.id = res.data.group5.id;
-        group5.name = res.data.group5.name;
-        group6.id = res.data.group6.id;
-        group6.name = res.data.group6.name;
-        group7.id = res.data.group7.id;
-        group7.name = res.data.group7.name;
-        group8.id = res.data.group8.id;
-        group8.name = res.data.group8.name;
+        //发送请求
+        wx.request({
+          url: 'https://www.myworkroom.cn:5000/getopenid', //接口地址
+          data:  {'code' : res.code},
+          header: {
+            'content-type': 'application/x-www-form-urlencoded' //默认值
+          },
+          method: "POST",
+          success: function (res) {
+            console.log(res.data)
+            getApp().globalData.openid = res.data.content.openid;
+            console.log(getApp().globalData.openid);
+          }
+        })
       }
     })
- },
+    //初始化的时候渲染wxSearchdata
+    WxSearch.init(that, 43, ['tatan', '金馆长', '脆皮鹦鹉', '可达鸭', '汪蛋']);
+    WxSearch.initMindKeys(['666', '微信小程序开发', '微信开发', '微信小程序']);
+    //获取groupid
+    that.getRandom();
+    
+  },
+  getRandom: function () {
+    var that = this;
+    wx.request({
+      url: "https://www.myworkroom.cn:5000/getrandom",
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' //默认值
+      },
+      success: function (res) {
+        for(var i=0;i<10;i++){
+          var string1 = "group[" + i + "].id";
+          var string2 = "group[" + i + "].name";
+          that.setData({
+            [string1]: res.data.data[i].template_id,
+            [string2]: res.data.data[i].template_name
+          });
+        }
+      }
+    })
+  },
   onShareAppMessage: function () {
-    return{
+    return {
       title: "斗图大师",
       desc: "斗图大师",
-     // path: '/pages/home/home?id=' + this.data.pageId,
+      // path: '/pages/home/home?id=' + this.data.pageId,
       imageUrl: '../../images/2.jpg'
     }
   },
@@ -137,63 +132,55 @@ Page({
     vm.setData({
       pageStatus: true
     });
-    setTimeout(function () {
-      vm.setData({
-        pageNo: vm.data.pageNo + 1,
-        list: vm.data.list.concat(vm.data.list2),
-        pageStatus: false
-      });
-    }, 2000);
   },
-  wxSearchFn: function(e){
-    var that = this
-    WxSearch.wxSearchAddHisKey(that);
-    console.log(wxSearchData.value);
-
+  wxSearchFn: function (e) {
+    var that = this;
+    
+    var text = that.data.text;
+    
     wx.request
       ({
-        url: 'https:', //接口地址
-        data: { text },
+        url: 'https://www.myworkroom.cn:5000/search', //接口地址
+        data: {'openid' : '123456',
+                'sentence' : text},
         header: {
           'content-type': 'application/x-www-form-urlencoded' //默认值
         },
         method: "POST",
         success: function (res) {
           console.log(res.data)
-              wx.redirectTo({
-                url: '../searchResult/searchResult'
-              })
+
         }
-      })
+      });
   },
-  wxSearchInput: function(e){
+  wxSearchInput: function (e) {
     var that = this
-    WxSearch.wxSearchInput(e,that);
+    WxSearch.wxSearchInput(e, that);
     that.setData({
-      text:e.detail.value
+      text: e.detail.value
     })
   },
-  wxSerchFocus: function(e){
+  wxSerchFocus: function (e) {
     var that = this
-    WxSearch.wxSearchFocus(e,that);
+    WxSearch.wxSearchFocus(e, that);
   },
-  wxSearchBlur: function(e){
+  wxSearchBlur: function (e) {
     var that = this
-    WxSearch.wxSearchBlur(e,that);
+    WxSearch.wxSearchBlur(e, that);
   },
-  wxSearchKeyTap:function(e){
+  wxSearchKeyTap: function (e) {
     var that = this
-    WxSearch.wxSearchKeyTap(e,that);
+    WxSearch.wxSearchKeyTap(e, that);
   },
-  wxSearchDeleteKey: function(e){
+  wxSearchDeleteKey: function (e) {
     var that = this
-    WxSearch.wxSearchDeleteKey(e,that);
+    WxSearch.wxSearchDeleteKey(e, that);
   },
-  wxSearchDeleteAll: function(e){
+  wxSearchDeleteAll: function (e) {
     var that = this;
     WxSearch.wxSearchDeleteAll(that);
   },
-  wxSearchTap: function(e){
+  wxSearchTap: function (e) {
     var that = this
     WxSearch.wxSearchHiddenPancel(that);
   },
@@ -224,5 +211,31 @@ Page({
       })
     }
   },
+  
+  change_group : function(event){
+    var that = this;
+    var id=event.currentTarget.dataset.gid;
+    var name = event.currentTarget.dataset.name;
+    that.setData({
+      'current_group.id' : id,
+      'current_group.name' : name
+    });
+
+    wx.request
+      ({
+        url: 'https://www.myworkroom.cn:5000/getgroup', //接口地址
+        data: { 'template_id': id,
+                'openid' : '123456' },
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' //默认值
+        },
+        method: "POST",
+        success: function (res) {
+          that.setData({
+            imgarray : res.data.group
+          });
+        }
+      })
+  }
 
 })
