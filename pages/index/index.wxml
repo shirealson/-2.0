@@ -36,7 +36,7 @@
 </view>
 
 <view id="pic_area" class='page__bd_spacing'>
-  <view id="AI-box">
+  <view id="AI-box" wx:if="{{false}}">
     <view class="weui-article__h1">不满意搜索结果?</view>
     <view class="weui-article__p" style='font-size:30rpx'>快来尝试我们的AI合成图片功能吧！我们将使用AI生成你想要的表情!</view>
       <button class='weui-btn' type="primary">开始合成(≖ᴗ≖)✧</button>
@@ -49,8 +49,8 @@
       </view>
       <view style="float:left">脆皮鹦鹉</view>
       
-      <image src="/images/like1.png" class="like_btn"  wx:if="{{false}}"></image>
-      <image src="/images/like2.png" class="like_btn"></image>  
+      <image src="/images/like2.png" class="like_btn"  wx:if="{{true}}"></image>
+      <image src="/images/like1.png" class="like_btn" wx:else></image>  
     </view>
 
     <view class="img_card">
@@ -59,18 +59,18 @@
       </view>
       <view style="float:left">脆皮鹦鹉</view>
       
-      <image src="/images/like1.png" class="like_btn"  wx:if="{{false}}"></image>
-      <image src="/images/like2.png" class="like_btn"></image>  
+      <image src="/images/like2.png" class="like_btn"  wx:if="{{false}}"></image>
+      <image src="/images/like1.png" class="like_btn"  wx:else></image>  
     </view>
 
     <view class="img_card">
       <view style='text-align:center'>
-        <image src="/images/pic1.jpg" class="meme_pic"mode="aspectFit"></image>
+        <image src="/images/pic2.gif" class="meme_pic"mode="aspectFit"></image>
       </view>
       <view style="float:left">脆皮鹦鹉</view>
       
-      <image src="/images/like1.png" class="like_btn"  wx:if="{{false}}"></image>
-      <image src="/images/like2.png" class="like_btn"></image>  
+      <image src="/images/like2.png" class="like_btn"  wx:if="{{false}}"></image>
+      <image src="/images/like1.png" class="like_btn"  wx:else></image>  
     </view>
 
   </view>
@@ -83,6 +83,6 @@
 
  
 
- <image src='/images/gotop.jpg' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>
+ <image src='/images/top.png' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>
 
 

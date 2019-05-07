@@ -216,7 +216,7 @@ Page {
   width: 80rpx;
   position: fixed;
   bottom: 50rpx;
-  background: rgba(0,0,0,.3);
+  background: rgba(255, 255, 255,0.3);
   right: 30rpx;
   border-radius: 50%;
 }
@@ -294,5 +294,5 @@ height:50rpx;
 width:50rpx;
 position: relative;
 float: right;
-top:7rpx;
+top:6rpx;
 }
