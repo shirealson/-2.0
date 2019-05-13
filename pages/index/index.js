@@ -42,14 +42,14 @@ Page({
         //发送请求
         wx.request({
           url: 'https://www.myworkroom.cn:5000/getopenid', //接口地址
-          data:  {'code' : res.code},
+          data: {'code' : res.code},
           header: {
             'content-type': 'application/x-www-form-urlencoded' //默认值
           },
           method: "POST",
           success: function (res) {
             console.log(res.data)
-            getApp().globalData.openid = res.data.content.openid;
+            getApp().globalData.openid = res.data.openid;
             console.log(getApp().globalData.openid);
           }
         })

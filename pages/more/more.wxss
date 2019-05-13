@@ -1,1 +1,11 @@
 /* pages/more/more.wxss */
+@import "/pages/index/index.wxss";
+
+#user_info_box{
+  height: 300rpx;
+  background-color: orange;
+
+  border-radius: 20rpx;
+  box-shadow: 0 5rpx 3px #d8d7d7;
+  border:1px solid #d8d7d7;
+}

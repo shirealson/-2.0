@@ -1,2 +1,13 @@
 <!--pages/more/more.wxml-->
-<text>pages/more/more.wxml</text>
+<image src="/images/background.jpg" mode= "widthFix" style="width:100%;height:200%;position:fixed;top:0;left:0;z-index:-1"/>
+<view class='page__bd_spacing'>
+  <view id="user_info_box">
+    <view class="weui-flex">
+      <view class="weui-flex__item"><img alt="用户头像" class="user_avatar"/></view>
+      <view style='flex:2'>
+        <view>昵称</view>
+        <view>表情包总量</view>
+      </view>
+    </view>
+  </view>
+</view>
