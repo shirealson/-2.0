@@ -33,12 +33,14 @@ Page({
     // }
   },
   onLoad: function () {
+    wx.showLoading({
+      title: "登录中"
+    });
     console.log('onLoad')
     var that = this
     wx.login({
       success: function (res) {
         console.log(res.code)
-
         //发送请求
         wx.request({
           url: 'https://www.myworkroom.cn:5000/getopenid', //接口地址
@@ -51,6 +53,7 @@ Page({
             console.log(res.data)
             getApp().globalData.openid = res.data.openid;
             console.log(getApp().globalData.openid);
+            wx.hideLoading();//关闭提示
           }
         })
       }
@@ -61,8 +64,12 @@ Page({
     //获取groupid
     that.getRandom();
     
+    
   },
   getRandom: function () {
+    wx.showLoading({
+      title: '加载中',
+    })
     var that = this;
     wx.request({
       url: "https://www.myworkroom.cn:5000/getrandom",
@@ -82,6 +89,7 @@ Page({
             [string2]: res.data.data[i].template_name
           });
         }
+        wx.hideLoading();//关闭提示
       }
     })
   },
@@ -216,6 +224,9 @@ Page({
   },
   
   change_group : function(event){
+    wx.showLoading({
+      title: '加载中',
+    })
     var that = this;
     var id=event.currentTarget.dataset.gid;
     var name = event.currentTarget.dataset.name;
@@ -227,8 +238,10 @@ Page({
     wx.request
       ({
         url: 'https://www.myworkroom.cn:5000/getgroup', //接口地址
-        data: { 'template_id': id,
-                'openid' : '123456' },
+        data: { 
+                'template_id': id,
+                'openid': getApp().globalData.openid 
+              },
         header: {
           'content-type': 'application/x-www-form-urlencoded' //默认值
         },
@@ -237,6 +250,7 @@ Page({
           that.setData({
             imgarray : res.data.group
           });
+          wx.hideLoading();//关闭提示
         }
       })
   }
