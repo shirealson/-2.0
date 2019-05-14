@@ -269,9 +269,13 @@ Page {
   text-align: center;
   padding: 10rpx 5rpx;
   
+  
 }
 .mynavBar view{
   margin:10rpx;
+  font-size:25rpx;
+  white-space:nowrap;
+
 }
 
 #AI-box{

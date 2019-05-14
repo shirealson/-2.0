@@ -2,12 +2,77 @@
 <image src="/images/background.jpg" mode= "widthFix" style="width:100%;height:200%;position:fixed;top:0;left:0;z-index:-1"/>
 <view class='page__bd_spacing'>
   <view id="user_info_box">
-    <view class="weui-flex">
-      <view class="weui-flex__item"><img alt="用户头像" class="user_avatar"/></view>
-      <view style='flex:2'>
-        <view>昵称</view>
-        <view>表情包总量</view>
+    <view class="weui-flex vertical-center" >
+      <view class="weui-flex__item" style="text-align:center">
+      <view class="vertical-center">
+        <image class="user_avatar" mode="cover" src="/images/pic1.jpg"/></view>
+      </view>  
+      <view style='flex:2;font-size:30rpx;color:white'>
+        <view class='vertical-center'>
+          <view>昵称:<text style='color:yellow'>xxx</text></view>
+          <view>表情包总量:<text style='color:yellow'>xxx</text></view>
+        </view>
+        
       </view>
     </view>
   </view>
+
+  <view style="margin:20rpx 0;font-size:30rpx">
+    <view class="wxSearch-pancel">
+      <input bindinput="wxSearchInput" class="wxSearch-input mySearchInput"  style="flex:5" placeholder="搜索云空间中的表情"  />
+      <button class="wxSearch-button mySearchBtn" bindtap="wxSearchFn" plain="true" style="font-size:30rpx">搜索</button>
+      <view style="flex:2"><button id="upload-btn">上传</button></view>
+    </view>
+  </view>
+  
+
+
+
+  
 </view>
+
+<view id="pic_area">
+    <view class="weui-flex my-flex" style="margin-top:30rpx" >
+
+      <view class="img_card" wx:for="{{imgarray}}">
+        <view style='text-align:center'>
+          <image src="{{'https://www.myworkroom.cn:5000/static/img/' + item.path}}" class="meme_pic"mode="aspectFit"></image>
+        </view>
+        <view style="float:left">{{current_group.name}}</view>
+      
+        <image src="/images/delete.png" class="like_btn"></image> 
+        </view>
+
+    <view class="img_card">
+      <view style='text-align:center'>
+        <image src="/images/pic1.jpg" class="meme_pic"mode="aspectFit"></image>
+      </view>
+      <view style="float:left">test</view>
+      
+      <image src="/images/delete.png" class="like_btn"></image>
+    </view>
+
+    <view class="img_card">
+      <view style='text-align:center'>
+        <image src="/images/pic1.jpg" class="meme_pic"mode="aspectFit"></image>
+      </view>
+      <view style="float:left">test</view>
+      
+      <image src="/images/like2.png" class="like_btn"  wx:if="{{item.like}}"></image>
+      <image src="/images/like1.png" class="like_btn" wx:else></image>  
+    </view>
+
+
+    <view class="img_card">
+      <view style='text-align:center'>
+        <image src="/images/pic1.jpg" class="meme_pic"mode="aspectFit"></image>
+      </view>
+      <view style="float:left">test</view>
+      
+      <image src="/images/like2.png" class="like_btn"  wx:if="{{item.like}}"></image>
+      <image src="/images/like1.png" class="like_btn" wx:else></image>  
+    </view>
+
+
+    </view>
+  </view>

@@ -74,6 +74,9 @@ Page({
         for(var i=0;i<10;i++){
           var string1 = "group[" + i + "].id";
           var string2 = "group[" + i + "].name";
+          if (res.data.data[i].template_name.length > 4){
+            res.data.data[i].template_name = res.data.data[i].template_name.substring(0, 4) + "...";
+          }//自动省略
           that.setData({
             [string1]: res.data.data[i].template_id,
             [string2]: res.data.data[i].template_name

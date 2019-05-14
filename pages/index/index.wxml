@@ -6,7 +6,7 @@
 <image src="/images/logo.png" mode="aspectFit" style='height:300rpx'/>
 <view class="SearchBox">
   <view class="wxSearch-pancel">
-    <input bindinput="wxSearchInput" class="wxSearch-input mySearchInput" placeholder="快来pick你想要的表情包吧" />
+    <input bindinput="wxSearchInput"  style="font-size:30rpx" class="wxSearch-input mySearchInput" placeholder="快来pick你想要的表情包吧" />
     <button class="wxSearch-button mySearchBtn" bindtap="wxSearchFn" plain="true" style="font-size:30rpx">搜索</button>
   </view>
 </view>
@@ -53,6 +53,7 @@
       <image src="/images/like2.png" class="like_btn"  wx:if="{{item.like}}"></image>
       <image src="/images/like1.png" class="like_btn" wx:else></image>  
     </view>
+
 
 
   </view>
