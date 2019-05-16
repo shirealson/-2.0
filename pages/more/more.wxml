@@ -19,9 +19,9 @@
 
   <view style="margin:20rpx 0;font-size:30rpx">
     <view class="wxSearch-pancel">
-      <input bindinput="wxSearchInput" class="wxSearch-input mySearchInput"  style="flex:5" placeholder="搜索云空间中的表情"  />
+      <input bindinput="wxSearchInput" class="wxSearch-input mySearchInput"  style="flex:5" placeholder="搜索云空间中的表情" value="{{search_value}}" />
       <button class="wxSearch-button mySearchBtn" bindtap="wxSearchFn" plain="true" style="font-size:30rpx">搜索</button>
-      <view style="flex:2"><button id="upload-btn">上传</button></view>
+      <view style="flex:2"><button id="upload-btn" bindtap="chooseImageTap">上传</button></view>
     </view>
   </view>
   
@@ -34,45 +34,46 @@
 <view id="pic_area">
     <view class="weui-flex my-flex" style="margin-top:30rpx" >
 
-      <view class="img_card" wx:for="{{imgarray}}">
+      <view class="img_card" wx:for="{{image_array}}" wx:if="{{item.like}}">
         <view style='text-align:center'>
-          <image src="{{'https://www.myworkroom.cn:5000/static/img/' + item.path}}" class="meme_pic"mode="aspectFit"></image>
+          <image src="{{url + '/static/img/' + item.path}}" class="meme_pic"mode="aspectFit"></image>
         </view>
-        <view style="float:left">{{current_group.name}}</view>
+        <view style="float:left">{{img_title}}</view>
       
-        <image src="/images/delete.png" class="like_btn"></image> 
+        <image src="/images/delete.png" class="like_btn"  wx:if="{{item.like}}"           bindtap="unlike" data-imgid='{{item.imageid}}' data-num='{{index}}'></image>
         </view>
 
-    <view class="img_card">
-      <view style='text-align:center'>
-        <image src="/images/pic1.jpg" class="meme_pic"mode="aspectFit"></image>
-      </view>
-      <view style="float:left">test</view>
-      
-      <image src="/images/delete.png" class="like_btn"></image>
-    </view>
+        
 
-    <view class="img_card">
-      <view style='text-align:center'>
-        <image src="/images/pic1.jpg" class="meme_pic"mode="aspectFit"></image>
-      </view>
-      <view style="float:left">test</view>
-      
-      <image src="/images/like2.png" class="like_btn"  wx:if="{{item.like}}"></image>
-      <image src="/images/like1.png" class="like_btn" wx:else></image>  
-    </view>
-
-
-    <view class="img_card">
-      <view style='text-align:center'>
-        <image src="/images/pic1.jpg" class="meme_pic"mode="aspectFit"></image>
-      </view>
-      <view style="float:left">test</view>
-      
-      <image src="/images/like2.png" class="like_btn"  wx:if="{{item.like}}"></image>
-      <image src="/images/like1.png" class="like_btn" wx:else></image>  
-    </view>
-
-
+    
     </view>
   </view>
+
+<view id="upload-tips-bg" wx:if="{{tipSwitch}}">
+    <view id="upload-tips">
+        <view style='text-align:center;margin:10rpx 0'>提示</view>
+        <view class="divLine"></view>
+        <view class="tips-text">我们服务器的小AI同学，发现您的下面这些图片好像不是表情包，拒绝了他们的上传哦，请更换其他图片</view>
+        
+        
+        <scroll-view scroll-y="true" style="height: 600rpx;">
+        <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" wx:for="{{noMemeArray}}">
+                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                        <image class="weui-media-box__thumb" src="{{item}}" />
+                    </view>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="weui-media-box__title" style="color:red">非表情包</view>
+                    </view>
+                </navigator>
+        </scroll-view>
+        
+
+        
+
+
+        <view style='text-align:center;margin-top:30rpx'>
+            <button class='weui-btn' type="primary" size="mini" bindtap="closeTip">关闭</button>
+
+        </view>
+    </view>
+</view>

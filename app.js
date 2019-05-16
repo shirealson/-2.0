@@ -25,6 +25,8 @@ App({
     }
   },
   globalData:{
-    userInfo:null
+    userInfo:null,
+    openid:"inital_openid",
+    url:"https://www.myworkroom.cn:5001"
   }
 })

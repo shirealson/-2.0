@@ -46,12 +46,16 @@
 
     <view class="img_card" wx:for="{{imgarray}}">
       <view style='text-align:center'>
-        <image src="{{'https://www.myworkroom.cn:5000/static/img/' + item.path}}" class="meme_pic"mode="aspectFit"></image>
+        <image src="{{url + '/static/img/' + item.path}}" class="meme_pic"mode="aspectFit"></image>
       </view>
       <view style="float:left">{{current_group.name}}</view>
-      
+      <image src="/images/like2.png" class="like_btn"  wx:if="{{item.like}}"           bindtap="unlike" data-imgid='{{item.imageid}}' data-num='{{index}}'></image>
+      <image src="/images/like1.png" class="like_btn" wx:else 
+      bindtap="like" data-imgid='{{item.imageid}}' data-num='{{index}}'></image>
+      <!--
       <image src="/images/like2.png" class="like_btn"  wx:if="{{item.like}}"></image>
       <image src="/images/like1.png" class="like_btn" wx:else></image>  
+      !-->
     </view>
 
 

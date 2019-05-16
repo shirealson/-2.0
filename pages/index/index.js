@@ -4,6 +4,7 @@ var WxSearch = require('../../wxSearch/wxSearch.js')
 var app = getApp()
 Page({
   data: {
+    url:"",//请求地址
     group: [
       {id : 0, name : "xxx"},
       { id: 1, name: "xxx" },
@@ -33,6 +34,9 @@ Page({
     // }
   },
   onLoad: function () {
+    this.setData({
+      url:app.globalData.url
+    });
     wx.showLoading({
       title: "登录中"
     });
@@ -43,7 +47,7 @@ Page({
         console.log(res.code)
         //发送请求
         wx.request({
-          url: 'https://www.myworkroom.cn:5000/getopenid', //接口地址
+          url: app.globalData.url + '/getopenid', //接口地址
           data: {'code' : res.code},
           header: {
             'content-type': 'application/x-www-form-urlencoded' //默认值
@@ -72,7 +76,7 @@ Page({
     })
     var that = this;
     wx.request({
-      url: "https://www.myworkroom.cn:5000/getrandom",
+      url: app.globalData.url + "/getrandom",
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded' //默认值
@@ -151,9 +155,11 @@ Page({
     
     wx.request
       ({
-        url: 'https://www.myworkroom.cn:5000/search', //接口地址
-        data: {'openid' : '123456',
-                'sentence' : text},
+        url: app.globalData.url + '/search', //接口地址
+        data: {
+          'openid': getApp().globalData.openid,
+          'sentence' : text
+          },
         header: {
           'content-type': 'application/x-www-form-urlencoded' //默认值
         },
@@ -237,7 +243,7 @@ Page({
 
     wx.request
       ({
-        url: 'https://www.myworkroom.cn:5000/getgroup', //接口地址
+        url: app.globalData.url + '/getgroup', //接口地址
         data: { 
                 'template_id': id,
                 'openid': getApp().globalData.openid 
@@ -251,6 +257,65 @@ Page({
             imgarray : res.data.group
           });
           wx.hideLoading();//关闭提示
+        }
+      })
+  },
+
+  like: function (event) {
+    wx.showLoading({
+      title: '加载中',
+    })
+    var that = this
+    var imgid = event.currentTarget.dataset.imgid;
+    var flag = event.currentTarget.dataset.num;
+
+    var flag1 = "imgarray[" + flag + "].like";
+    console.log("flag" + flag);
+    console.log("flag" + imgid);
+    wx.request
+      ({
+        url: app.globalData.url + '/like', //接口地址
+        data: {
+          'imageid': imgid,
+          'openid': getApp().globalData.openid
+        },
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' //默认值
+        },
+        method: "POST",
+        success: function (res) {
+          that.setData({
+            [flag1]: true,
+
+          });
+          wx.hideLoading();//关闭提示
+        }
+      })
+  },
+  unlike: function (event) {
+    var that = this
+    var imgid = event.currentTarget.dataset.imgid;
+    var flag = event.currentTarget.dataset.num;
+
+    var flag1 = "imgarray[" + flag + "].like";
+    console.log("flag" + flag);
+    wx.request
+      ({
+        url: app.globalData.url + '/unlike', //接口地址
+        data: {
+          'imageid': imgid,
+          'openid': getApp().globalData.openid
+        },
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' //默认值
+        },
+        method: "POST",
+        success: function (res) {
+          that.setData({
+            [flag1]: false,
+
+          });
+
         }
       })
   }
