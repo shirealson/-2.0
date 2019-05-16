@@ -5,12 +5,13 @@
     <view class="weui-flex vertical-center" >
       <view class="weui-flex__item" style="text-align:center">
       <view class="vertical-center">
-        <image class="user_avatar" mode="cover" src="/images/pic1.jpg"/></view>
+        <image class="user_avatar" mode="cover" src="{{userInfo.avatarUrl}}"/></view>
       </view>  
       <view style='flex:2;font-size:30rpx;color:white'>
         <view class='vertical-center'>
-          <view>昵称:<text style='color:yellow'>xxx</text></view>
-          <view>表情包总量:<text style='color:yellow'>xxx</text></view>
+          <view>昵称:<text style='color:yellow'>{{userInfo.nickName}}</text></view>
+          <view>表情包总量:<text style='color:yellow'>{{pic_num}}</text></view>
+          <view><button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='weui-btn' type="primary" size="mini"> 获取头像昵称 </button></view>
         </view>
         
       </view>

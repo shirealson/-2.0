@@ -16,9 +16,9 @@
 }
 .user_avatar{
   border:1px solid #d8d7d7;
-  height:150rpx;
-  width:150rpx;
-  border-radius: 75rpx;
+  height:130rpx;
+  width:130rpx;
+  border-radius: 50%;
 }
 #pic_area{
   margin: 0 0 20rpx 0;
