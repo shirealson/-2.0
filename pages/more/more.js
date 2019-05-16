@@ -13,7 +13,10 @@ Page({
         img_title: "",
         image_array: "",//存放图片数组
         noImage_notice: false,//是否提示无图片
-        tempImgs: [],//临时图片地址数组
+        tempImgs: [{
+            url:"",
+            msg:""
+        }],//临时图片地址数组
         picPaths: [],//网络路径
         tipSwitch:false,//非表情包提示框开关
         noMemeArray:[]//存放着非表情包的路径
@@ -229,6 +232,11 @@ Page({
     //上传图片相关代码
     chooseImageTap: function () {
         var that = this;
+        that.setData({
+            tempImgs:[],
+            picPaths:[],
+            noMemeArray:[]
+        });//上传前先清空所有临时变量
         wx.showActionSheet({
             itemList: ['从相册中选择', '拍照'],
             itemColor: "#00000",
@@ -254,9 +262,15 @@ Page({
                 wx.showLoading({
                     title: '上传中',
                 });
-                that.setData({
-                    tempImgs: res.tempFilePaths
-                });
+                for (var i = 0; i < res.tempFilePaths.length;i++){
+                    var string = 'tempImgs['+i+'].url';
+                    var string2 = 'tempImgs[' + i + '].msg';
+                    that.setData({
+                        [string]: res.tempFilePaths[i],
+                        [string2] : "访问服务器出错"
+                    });
+                }//地址赋值
+                
                 var successUp = 0; //成功
                 var failUp = 0; //失败
                 var length = res.tempFilePaths.length; //总数
@@ -265,20 +279,21 @@ Page({
                     picPaths:[]//上传前清空picPaths
                 });
                 //调用上传方法
-                that.upImgs(res.tempFilePaths, successUp, failUp, count, length, function (successUp, failUp){//回调函数
+                that.upImgs(that.data.tempImgs, successUp, failUp, count, length, function (successUp, failUp){//回调函数
                     wx.hideLoading();//隐藏加载提示
+                    console.log("成功" + successUp + "失败" + failUp);
                     that.setData({
                         noMemeArray:[]
                     });//清空数组
-                    for (var i=0;i<that.data.picPaths.length;i++){
-                        if (that.data.picPaths[i] == "图片不是表情包"){
-                            var string = 'noMemeArray[' + i + ']';
-                            that.setData({
-                                [string]: that.data.tempImgs[i]
-                            });
+                    for (var i=0;i<that.data.tempImgs.length;i++){
+                        if (that.data.tempImgs[i].msg === "图片不是表情包"){
+                            that.data.noMemeArray.push(that.data.tempImgs[i].url);
                             //将非表情包图片路径加入数组中
                         }
                     }
+                    that.setData({
+                        noMemeArray : that.data.noMemeArray
+                    });//弱智机制，必须这么写才能让修改生效
                     if(that.data.noMemeArray.length > 0){//如果非表情包数组大于0
                         that.setData({
                             tipSwitch:true
@@ -302,13 +317,14 @@ Page({
     },
     //上传服务器
     upImgs: function (imgPaths, successUp, failUp, count, length,callback) {
+        console.log("正在上传第" + (count + 1) + "张");
         var that = this;
         wx.showLoading({
             title: '正在上传第'+ (count + 1) + "/" + length + "张",
         })
         wx.uploadFile({
             url: that.data.url + '/upload_image',//
-            filePath: imgPaths[count],
+            filePath: imgPaths[count].url,
             name: 'file',
             header: {
                 'content-type': 'multipart/form-data'
@@ -318,24 +334,31 @@ Page({
                 successUp++;//自加
                 console.log(res) //接口返回网络路径
                 var data = JSON.parse(res.data);
-                //that.data.picPaths.push(data['msg'])
-                var string = 'picPaths[' + count + ']';
+
+                var string = 'tempImgs[' + count + '].msg';
+                
                 that.setData({
                     [string] : data.msg
                 })
+                
             },
             fail: function(e){
                 failUp++;
+                var string = 'tempImgs[' + count + '].msg';
+                that.setData({
+                    [string]: "访问服务器出错"
+                })
             },
             complete(e){
                 count++;
+                console.log("完成上传第" + count + "张");
                 if(count==length){//递归出口
                     //上传完成，调用回调函数
                     callback(successUp, failUp);
                 }
                 else{
                     that.upImgs(imgPaths, successUp, failUp, count, length, callback);//递归调用
-                    console.log("正在上传第" + (count+1) + "张");
+                    
                 }
 
 
@@ -347,6 +370,7 @@ Page({
         this.setData({
             tipSwitch:false
         });//关闭窗口
+        this.refreshImage();//刷新
     }
 
 })
