@@ -37,7 +37,7 @@
 
       <view class="img_card" wx:for="{{image_array}}" wx:if="{{item.like}}">
         <view style='text-align:center'>
-          <image src="{{url + '/static/img/' + item.path}}" class="meme_pic"mode="aspectFit"></image>
+          <image src="{{url + '/static/img/' + item.path}}" class="meme_pic"mode="aspectFit" data-src='{{url + "/static/img/" + item.path}}' bindtap="previewImg"></image>
         </view>
         <view style="float:left">{{img_title}}</view>
       

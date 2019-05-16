@@ -413,6 +413,12 @@ Page({
             userInfo: e.detail.userInfo,
             hasUserInfo: true
         })
+    },
+    previewImg: function (e) {
+        var current = e.target.dataset.src;
+        wx.previewImage({
+            urls: [current],
+        })
     }
 
 })
