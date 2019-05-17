@@ -303,3 +303,10 @@ position: relative;
 float: right;
 top:6rpx;
 }
+#noImage_notice{
+    font-size:40rpx;
+    color:#575757;
+    position: relative;
+    top: 100rpx;
+    text-align: center;
+}

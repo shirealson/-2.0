@@ -53,15 +53,17 @@ Page({
             method: "POST",
             success: function(res) {
                 var result = res.data;
-                if (result.success == 0) {
+                if (result.length == 0) {
                     that.setData({
                         noImage_notice: true //显示无图信息
                     });
                 } else {
                     that.setData({
-                        image_array: result.data, //显示无图信息
-                        pic_num : result.data.length
+                        image_array: result.data, 
+                        pic_num : result.data.length,
+                        noImage_notice: false//关闭无图显示
                     });
+                    that.get_img_sentence();//写入sentence
                 }
                 wx.hideLoading();
 
@@ -168,16 +170,33 @@ Page({
                         noImage_notice: true //显示无图信息
                     });
                 } else {
+
                     that.setData({
                         image_array: result.data, //显示无图信息
                         pic_num: result.data.length
                     });
+                    that.get_img_sentence();//写入sentence
+                    
                 }
                 wx.hideLoading();
 
             }
         })
 
+    },
+    get_img_sentence(){//用来得到每张图片的sentence
+        var that = this;
+        for (var i = 0; i < that.data.image_array.length; i++) {//更新sentence，如果没有sentence,用template_name顶替
+
+            if (that.data.image_array[i].sentence == null || that.data.image_array[i].sentence == "") {
+                var string = "image_array[" + i + "].sentence";
+                that.setData({
+                    [string]: that.data.image_array[i].template_name
+                });
+            }
+
+
+        }
     },
 
     wxSearchInput: function(e) {
@@ -189,39 +208,65 @@ Page({
 
     wxSearchFn: function() {
         var that = this;
-        wx.showLoading({
-            title: '搜索中',
-        });
-        wx.request({
-            url: app.globalData.url + '/search', //接口地址
-            data: {
-                'openid': that.data.openid,
-                'sentence': that.data.search_value
-            },
-            header: {
-                'content-type': 'application/x-www-form-urlencoded' //默认值
-            },
-            method: "POST",
-            success: function(res) {
-                console.log(res.data);
-                var result = res.data.data;
-                /*
-                for (var item in result){
-                  if(item.like == 'true'){
-                    image
-                  }
+        if (that.data.search_value != null && that.data.search_value != ""){
+            wx.showLoading({
+                title: '搜索中',
+            });
+            wx.request({
+                url: app.globalData.url + '/search', //接口地址
+                data: {
+                    'openid': that.data.openid,
+                    'sentence': that.data.search_value
+                },
+                header: {
+                    'content-type': 'application/x-www-form-urlencoded' //默认值
+                },
+                method: "POST",
+                success: function (res) {
+                    console.log(res.data);
+                    var result = res.data.data;
+                    if (result.length == 0) {
+                        that.setData({
+                            noImage_notice: true//如果搜索无结果，显示提示
+                        });
+                    }
+                    else {
+                        that.setData({
+                            image_array: result
+                        });
+                        that.get_img_sentence();//写入sentence
+                        var false_num = 0;
+                        for (var i = 0; i < result.length; i++) {//另一种情况，统计结果中没有收藏的个数
+                            if (result[i].like == false) {
+                                false_num++;
+                            }
+                        }
+                        if (false_num == result.length) {//如果都是不喜欢的，结果也是空
+
+                            that.setData({
+                                noImage_notice: true
+                            });
+                        }
+                        else
+                            that.setData({
+                                noImage_notice: false
+                            });
+                    }
+
+                    wx.hideLoading();
+
                 }
-                */
 
-                that.setData({
-                    image_array: res.data.data,
-                    img_title: that.data.search_value
-                });
-                wx.hideLoading();
-
-            }
-
-        })
+            });
+        }
+        else{
+            wx.showToast({
+                title: '请输入搜索词',
+                duration: 2000,
+                mask:true
+            })
+        }
+        
     },
     unlike: function(event) {
         var that = this

@@ -6,19 +6,20 @@ Page({
     data: {
         url: "",//请求地址
         group: [
-            { id: 0, name: "xxx" },
-            { id: 1, name: "xxx" },
-            { id: 2, name: "xxx" },
-            { id: 3, name: "xxx" },
-            { id: 4, name: "xxx" },
-            { id: 5, name: "xxx" },
-            { id: 6, name: "xxx" },
-            { id: 7, name: "xxx" },
-            { id: 8, name: "xxx" },
-            { id: 9, name: "xxx" }
+            { id: 0, name: "xxx", full_name: "xxx" },
+            { id: 1, name: "xxx", full_name: "xxx" },
+            { id: 2, name: "xxx", full_name: "xxx" },
+            { id: 3, name: "xxx", full_name: "xxx" },
+            { id: 4, name: "xxx", full_name: "xxx" },
+            { id: 5, name: "xxx", full_name: "xxx" },
+            { id: 6, name: "xxx", full_name: "xxx" },
+            { id: 7, name: "xxx", full_name: "xxx" },
+            { id: 8, name: "xxx", full_name: "xxx" },
+            { id: 9, name: "xxx", full_name: "xxx" }
         ],
         imgarray: [
         ],
+        noImage_notice: false,//是否提示无图片
         current_group: { id: 0, name: "xxx" },
         leftHeight: 0,
         rightHeight: 0,
@@ -69,7 +70,7 @@ Page({
         //获取groupid
         that.getRandom(function(){
             var id = that.data.group[0].id;
-            var name = that.data.group[0].name;;
+            var name = that.data.group[0].full_name;;
             that.setData({
                 'current_group.id': id,
                 'current_group.name': name,
@@ -94,6 +95,15 @@ Page({
                         that.setData({
                             imgarray: res.data.group
                         });
+
+                        for (var i = 0; i < that.data.imgarray.length; i++) {//更新sentence，如果没有sentence,用template_name顶替
+                            if (that.data.imgarray[i].sentence == null) {
+                                var string = "imgarray[" + i + "].sentence";
+                                that.setData({
+                                    [string]: that.data.current_group.name
+                                });
+                            }
+                        }
                         wx.hideLoading();//关闭提示
                     }
                 })
@@ -122,16 +132,29 @@ Page({
                 for (var i = 0; i < 10; i++) {
                     var string1 = "group[" + i + "].id";
                     var string2 = "group[" + i + "].name";
+                    var string3 = "group[" + i + "].full_name";
+                    
                     if (res.data.data[i].template_name.length > 4) {
-                        res.data.data[i].template_name = res.data.data[i].template_name.substring(0, 4) + "...";
+                        that.setData({
+                            [string1]: res.data.data[i].template_id,
+                            [string2]: res.data.data[i].template_name.substring(0, 4) + "...",
+                            [string3]: res.data.data[i].template_name
+                        });
+                        
                     }//自动省略
-                    that.setData({
-                        [string1]: res.data.data[i].template_id,
-                        [string2]: res.data.data[i].template_name
-                    });
+                    else{
+                        that.setData({
+                            [string1]: res.data.data[i].template_id,
+                            [string2]: res.data.data[i].template_name,
+                            [string3]: res.data.data[i].template_name
+                        });
+                    }
+                    
+                    
                 }
                 wx.hideLoading();//关闭提示
-                callback();
+                if(callback != null)
+                    callback();
             }
         })
     },
@@ -188,28 +211,55 @@ Page({
         var that = this;
 
         var text = that.data.text;
-        that.setData({
-            'current_group.name': text,
-            aibox: true
-        });
-        wx.request
-            ({
-                url: app.globalData.url + '/search', //接口地址
-                data: {
-                    'openid': getApp().globalData.openid,
-                    'sentence': text
-                },
-                header: {
-                    'content-type': 'application/x-www-form-urlencoded' //默认值
-                },
-                method: "POST",
-                success: function (res) {
-                    console.log(res.data)
-                    that.setData({
-                        imgarray: res.data.data
-                    });
-                }
+        if(text != "" && text != null){//防止为空
+            wx.request
+                ({
+                    url: app.globalData.url + '/search', //接口地址
+                    data: {
+                        'openid': getApp().globalData.openid,
+                        'sentence': text
+                    },
+                    header: {
+                        'content-type': 'application/x-www-form-urlencoded' //默认值
+                    },
+                    method: "POST",
+                    success: function (res) {
+                        console.log(res.data)
+
+                        if (res.data.data.length == 0) {
+                            that.setData({
+                                imgarray: res.data.data,
+                                noImage_notice: true//显示无图提示
+                            });
+                        }
+                        else {
+                            that.setData({
+                                imgarray: res.data.data,
+                                noImage_notice: false//关闭无图提示
+                            });
+                            for (var i = 0; i < that.data.imgarray.length; i++) {//更新sentence，如果没有sentence,用template_name顶替
+
+                                if (that.data.imgarray[i].sentence == null) {
+                                    var string = "imgarray[" + i + "].sentence";
+                                    that.setData({
+                                        [string]: that.data.imgarray[i].template_name
+                                    });
+                                }
+
+
+                            }
+
+                        }
+                    }
+                });
+        }
+        else{
+            wx.showToast({
+                title: '请输入搜索词',
+                mask:true
             });
+        }
+        
     },
     wxSearchInput: function (e) {
         var that = this
@@ -271,6 +321,7 @@ Page({
     },
 
     change_group: function (event) {
+
         wx.showLoading({
             title: '加载中',
         })
@@ -280,7 +331,8 @@ Page({
         that.setData({
             'current_group.id': id,
             'current_group.name': name,
-            aibox: false
+            aibox: false,
+            noImage_notice:false
 
         });
 
@@ -299,10 +351,19 @@ Page({
                     that.setData({
                         imgarray: res.data.group
                     });
+                    for (var i = 0; i < that.data.imgarray.length; i++) {//更新sentence，如果没有sentence,用template_name顶替
+                        if (that.data.imgarray[i].sentence == null) {
+                            var string = "imgarray[" + i + "].sentence";
+                            that.setData({
+                                [string]: that.data.current_group.name
+                            });
+                        }
+                    }
                     wx.hideLoading();//关闭提示
                 }
             })
     },
+    
 
     like: function (event) {
         wx.showLoading({

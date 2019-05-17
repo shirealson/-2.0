@@ -20,35 +20,36 @@
   </view>
   <view class="mynavBar">
     <view class="weui-flex">
-            <view class="weui-flex__item"data-gid='{{group[0].id}}' data-name='{{group[0].name}}'bindtap="change_group">{{group[0].name}}</view>
-            <view class="weui-flex__item"data-gid='{{group[1].id}}' data-name='{{group[1].name}}'bindtap="change_group">{{group[1].name}}</view>
-            <view class="weui-flex__item"data-gid='{{group[2].id}}' data-name='{{group[2].name}}'bindtap="change_group">{{group[2].name}}</view>
-            <view class="weui-flex__item"data-gid='{{group[3].id}}' data-name='{{group[3].name}}'bindtap="change_group">{{group[3].name}}</view>
-            <view class="weui-flex__item"data-gid='{{group[4].id}}' data-name='{{group[4].name}}'bindtap="change_group">{{group[4].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[0].id}}' data-name='{{group[0].full_name}}'bindtap="change_group">{{group[0].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[1].id}}' data-name='{{group[1].full_name}}'bindtap="change_group">{{group[1].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[2].id}}' data-name='{{group[2].full_name}}'bindtap="change_group">{{group[2].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[3].id}}' data-name='{{group[3].full_name}}'bindtap="change_group">{{group[3].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[4].id}}' data-name='{{group[4].full_name}}'bindtap="change_group">{{group[4].name}}</view>
     </view>
     <view class="weui-flex">
-            <view class="weui-flex__item"data-gid='{{group[5].id}}' data-name='{{group[5].name}}'bindtap="change_group">{{group[5].name}}</view>
-            <view class="weui-flex__item"data-gid='{{group[6].id}}' data-name='{{group[6].name}}'bindtap="change_group">{{group[6].name}}</view>
-            <view class="weui-flex__item"data-gid='{{group[7].id}}' data-name='{{group[7].name}}'bindtap="change_group">{{group[7].name}}</view>
-            <view class="weui-flex__item"data-gid='{{group[8].id}}' data-name='{{group[8].name}}'bindtap="change_group">{{group[8].name}}</view>
-            <view class="weui-flex__item"data-gid='{{group[9].id}}' data-name='{{group[9].name}}'bindtap="change_group">{{group[9].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[5].id}}' data-name='{{group[5].full_name}}'bindtap="change_group">{{group[5].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[6].id}}' data-name='{{group[6].full_name}}'bindtap="change_group">{{group[6].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[7].id}}' data-name='{{group[7].full_name}}'bindtap="change_group">{{group[7].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[8].id}}' data-name='{{group[8].full_name}}'bindtap="change_group">{{group[8].name}}</view>
+            <view class="weui-flex__item"data-gid='{{group[9].id}}' data-name='{{group[9].full_name}}'bindtap="change_group">{{group[9].name}}</view>
     </view>
   </view>
 </view>
 
 <view id="pic_area" class='page__bd_spacing' >
+<view id="noImage_notice" wx:if="{{noImage_notice}}">这里空空如也0.0</view>
   <view id="AI-box" wx:if="{{false}}">
     <view class="weui-article__h1">不满意搜索结果?</view>
     <view class="weui-article__p" style='font-size:30rpx'>快来尝试我们的AI合成图片功能吧！我们将使用AI生成你想要的表情!</view>
       <button class='weui-btn' type="primary">开始合成(≖ᴗ≖)✧</button>
   </view>
   <view class="weui-flex my-flex" style="margin-top:30rpx" >
-
+    
     <view class="img_card" wx:for="{{imgarray}}">
       <view style='text-align:center'>
         <image src="{{url + '/static/img/' + item.path}}" class="meme_pic"mode="aspectFit" data-src='{{url + "/static/img/" + item.path}}' bindtap="previewImg"></image>
       </view>
-      <view style="float:left">{{current_group.name}}</view>
+      <view style="float:left">{{item.sentence}}</view>
       <image src="/images/like2.png" class="like_btn"  wx:if="{{item.like}}"           bindtap="unlike" data-imgid='{{item.imageid}}' data-num='{{index}}'></image>
       <image src="/images/like1.png" class="like_btn" wx:else 
       bindtap="like" data-imgid='{{item.imageid}}' data-num='{{index}}'></image>

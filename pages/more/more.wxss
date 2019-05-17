@@ -29,6 +29,13 @@
   min-height:900rpx;
  
 }
+#noImage_notice{
+    font-size:40rpx;
+    color:grey;
+    position: relative;
+    top: 500rpx;
+    text-align: center;
+}
 #upload-btn{
   background-color: #606060;
   color: white;
