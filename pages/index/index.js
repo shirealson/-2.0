@@ -67,11 +67,44 @@ Page({
         WxSearch.init(that, 43, ['tatan', '金馆长', '脆皮鹦鹉', '可达鸭', '汪蛋']);
         WxSearch.initMindKeys(['666', '微信小程序开发', '微信开发', '微信小程序']);
         //获取groupid
-        that.getRandom();
+        that.getRandom(function(){
+            var id = that.data.group[0].id;
+            var name = that.data.group[0].name;;
+            that.setData({
+                'current_group.id': id,
+                'current_group.name': name,
+                aibox: false
+
+            });
+            wx.showLoading({
+                title: "加载分组中"
+            });
+            wx.request
+                ({
+                    url: app.globalData.url + '/getgroup', //接口地址
+                    data: {
+                        'template_id': id,
+                        'openid': getApp().globalData.openid
+                    },
+                    header: {
+                        'content-type': 'application/x-www-form-urlencoded' //默认值
+                    },
+                    method: "POST",
+                    success: function (res) {
+                        that.setData({
+                            imgarray: res.data.group
+                        });
+                        wx.hideLoading();//关闭提示
+                    }
+                })
+        });
+        //加载第一个分组图片
+        
+
 
 
     },
-    getRandom: function () {
+    getRandom: function (callback=null) {//可以接收一个回调函数
         wx.showLoading({
             title: '加载中',
         })
@@ -98,6 +131,7 @@ Page({
                     });
                 }
                 wx.hideLoading();//关闭提示
+                callback();
             }
         })
     },
