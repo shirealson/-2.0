@@ -53,9 +53,12 @@ Page({
             method: "POST",
             success: function(res) {
                 var result = res.data;
-                if (result.length == 0) {
+                console.log(res.data);
+                if (result.success == 0) {
+                    
                     that.setData({
-                        noImage_notice: true //显示无图信息
+                        noImage_notice: true, //显示无图信息
+                        image_array:[]
                     });
                 } else {
                     that.setData({
@@ -165,9 +168,11 @@ Page({
             method: "POST",
             success: function(res) {
                 var result = res.data;
+                console.log(res.data);
                 if (result.success == 0) {
                     that.setData({
-                        noImage_notice: true //显示无图信息
+                        noImage_notice: true, //显示无图信息
+                        image_array:[]
                     });
                 } else {
 
@@ -337,9 +342,6 @@ Page({
             sizeType: ['original', 'compressed'],
             sourceType: [type],
             success: function (res) {
-                wx.showLoading({
-                    title: '上传中',
-                });
                 for (var i = 0; i < res.tempFilePaths.length;i++){
                     var string = 'tempImgs['+i+'].url';
                     var string2 = 'tempImgs[' + i + '].msg';
