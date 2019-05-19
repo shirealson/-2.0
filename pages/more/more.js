@@ -177,8 +177,9 @@ Page({
                 } else {
 
                     that.setData({
-                        image_array: result.data, //显示无图信息
-                        pic_num: result.data.length
+                        image_array: result.data, //关闭无图信息
+                        pic_num: result.data.length,
+                        noImage_notice : false
                     });
                     that.get_img_sentence();//写入sentence
                     
