@@ -58,7 +58,8 @@ Page({
                     
                     that.setData({
                         noImage_notice: true, //显示无图信息
-                        image_array:[]
+                        image_array:[],
+                        pic_num: 0,
                     });
                 } else {
                     that.setData({
@@ -172,7 +173,8 @@ Page({
                 if (result.success == 0) {
                     that.setData({
                         noImage_notice: true, //显示无图信息
-                        image_array:[]
+                        image_array:[],
+                        pic_num: 0,
                     });
                 } else {
 
